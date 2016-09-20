@@ -21,10 +21,18 @@ translator.phrase();
 ### `#reset`
 
 It resets the current's instance string
+`translator.reset('colima')`
 
 ### `#translate`
 
 It transforms the current string according to PigLatin's set of rules.
+```
+translator.reset('michelada fria');
+translator.phrase();
+> 'michelada fria'
+translator.translate();
+> 'icheladamay iafray'
+```
 
 ## Implementation
 
