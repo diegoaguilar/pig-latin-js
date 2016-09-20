@@ -12,7 +12,11 @@ This is a JS class which should be initialized by providing a string, if no init
 
 ### `#phrase`
 
-It return current's instance string,
+It return current's instance string.
+```
+translator.phrase();
+> 'michelada'
+```
 
 ### `#reset`
 
