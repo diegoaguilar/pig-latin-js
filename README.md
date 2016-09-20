@@ -8,12 +8,14 @@ Famous PigLatin translator in JS.
 
 This is a JS class which should be initialized by providing a string, if no initial argument or not a valid string is provded, an `Error` will be thrown.
 
-`let translator = new PigLatin('michelada');`
+```javascript
+let translator = new PigLatin('michelada');
+```
 
 ### `#phrase`
 
 It return current's instance string.
-```
+```javascript
 translator.phrase();
 > 'michelada'
 ```
@@ -21,12 +23,14 @@ translator.phrase();
 ### `#reset`
 
 It resets the current's instance string
-`translator.reset('colima')`
+```javascript
+translator.reset('colima');
+```
 
 ### `#translate`
 
 It transforms the current string according to PigLatin's set of rules.
-```
+```javascript
 translator.reset('michelada fria');
 translator.phrase();
 > 'michelada fria'
@@ -38,7 +42,7 @@ translator.translate();
 
 The basic translation/classification rules of words has been implemented with the aid of regular expressions. For example:
 
-```
+```javascript
 const STARTS_WITH_VOWEL = /^[aeiou]/i;
 const STARTS_WITH_CONSONANT = /^[b-df-hj-np-tv-z]{1}/i
 const STARTS_WITH_TWO_CONSONANTS = /^[b-df-hj-np-tv-z]{2}/i;
