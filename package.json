@@ -4,7 +4,7 @@
   "description": "PigLatin translator",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha"
   },
   "author": "Diego Benjamín Aguilar Aguilar",
   "license": "MIT",
