@@ -1,6 +1,6 @@
 #PigLatin
 
-Famous PigLatin translator in JS.
+Famous [PigLatin translator](https://en.wikipedia.org/wiki/Pig_Latin) in JS.
 
 ## API
 
@@ -40,7 +40,7 @@ translator.translate();
 
 ## Implementation
 
-The basic translation/classification rules of words has been implemented with the aid of regular expressions. For example:
+The basic translation/classification [rules of translations](https://en.wikipedia.org/wiki/Pig_Latin#Rules) has been implemented with the aid of regular expressions. For example:
 
 ```javascript
 const STARTS_WITH_VOWEL = /^[aeiou]/i;
