@@ -14,7 +14,7 @@ let translator = new PigLatin('michelada');
 
 ### `#phrase`
 
-It return current's instance string.
+It return current instance string.
 ```javascript
 translator.phrase();
 > 'michelada'
@@ -22,7 +22,7 @@ translator.phrase();
 
 ### `#reset`
 
-It resets the current's instance string
+It resets the current instance string
 ```javascript
 translator.reset('colima');
 ```
