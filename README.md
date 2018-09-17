@@ -1,4 +1,4 @@
-#PigLatin
+# PigLatin
 
 Famous [PigLatin translator](https://en.wikipedia.org/wiki/Pig_Latin) in JS.
 
