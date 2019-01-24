@@ -1,9 +1,8 @@
 {
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 2018
   },
   "env": {
-    "es6": true,
     "node": true
   },
   "rules": {
