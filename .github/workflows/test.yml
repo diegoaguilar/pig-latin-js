@@ -2,6 +2,6 @@ name: self-hosted example
 on: push
 jobs:
   self-hosted:
-    runs-on: [self-hosted, ciudades-test-ops]
+    runs-on: [self-hosted, fargate-runner]
     steps:
       - run: echo hello world
