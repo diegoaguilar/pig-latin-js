@@ -1,0 +1,7 @@
+name: self-hosted example
+on: push
+jobs:
+  self-hosted:
+    runs-on: [self-hosted, customized-fargate]
+    steps:
+      - run: echo hello world
