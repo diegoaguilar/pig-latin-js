@@ -2,22 +2,41 @@
 
 Famous [PigLatin translator](https://en.wikipedia.org/wiki/Pig_Latin) in JS.
 
+## Requirements
+
+- Node.js >= 24.0.0
+
+## Installation
+
+```bash
+npm install
+```
+
+## Usage
+
+```javascript
+import PigLatin from 'piglatin';
+
+const translator = new PigLatin('hello world');
+translator.translate(); // 'ellohay orldway'
+```
+
 ## API
 
 ### `PigLatin`
 
-This is a JS class which should be initialized by providing a string, if no initial argument or not a valid string is provded, an `Error` will be thrown.
+This is a JS class which should be initialized by providing a string, if no initial argument or not a valid string is provided, an `Error` will be thrown.
 
 ```javascript
-let translator = new PigLatin('michelada');
+const translator = new PigLatin('michelada');
 ```
 
 ### `#phrase`
 
-It return current instance string.
+It returns the current instance string.
 ```javascript
 translator.phrase();
-> 'michelada'
+// 'michelada'
 ```
 
 ### `#reset`
@@ -33,28 +52,33 @@ It transforms the current string according to PigLatin's set of rules.
 ```javascript
 translator.reset('michelada fria');
 translator.phrase();
-> 'michelada fria'
+// 'michelada fria'
 translator.translate();
-> 'icheladamay iafray'
+// 'icheladamay iafray'
+```
+
+## Development
+
+```bash
+# Run tests
+npm test
+
+# Run tests once
+npm run test:run
+
+# Lint
+npm run lint
+
+# Fix lint issues
+npm run lint:fix
 ```
 
 ## Implementation
 
-The basic translation/classification [rules of translations](https://en.wikipedia.org/wiki/Pig_Latin#Rules) has been implemented with the aid of regular expressions. For example:
+The basic translation/classification [rules of translations](https://en.wikipedia.org/wiki/Pig_Latin#Rules) has been implemented with the aid of regular expressions with named capture groups:
 
 ```javascript
-const STARTS_WITH_VOWEL = /^[aeiou]/i;
-const STARTS_WITH_CONSONANT = /^[b-df-hj-np-tv-z]{1}/i
-const STARTS_WITH_TWO_CONSONANTS = /^[b-df-hj-np-tv-z]{2}/i;
-const ENDS_WITH_VOWEL = /[aeiou]$/i;
-const ENDS_WITH_CONSONANT = /[b-df-hj-np-tv-z]$/i;
-const ENDS_WITH_Y = /y$/i;
-const CAPTURE_LEADING_CONSONANTS = /^([b-df-hj-np-tv-z]{1,})([a-zA-Z]*)/i;
-const PHRASE = /\w+/ig;
+const CAPTURE_LEADING_CONSONANTS = /^(?<consonants>[b-df-hj-np-tv-z]{1,})(?<rest>[a-zA-Z]*)/i;
 ```
 
 Also a few word transformations has been done by using regex captures and replacing, particular string transformations has been implemented using core `String` methods like `slice` or `replace`.
-
-# Test
-
-Run `npm i; npm test`
