@@ -1,7 +1,25 @@
-name: self-hosted example
-on: push
+name: Test
+
+on:
+  pull_request:
+    branches: [master, main]
+  schedule:
+    # April 20th at 11:00 AM
+    - cron: '0 11 20 4 *'
+    # February 29th at 11:00 AM
+    - cron: '0 11 29 2 *'
+    # November 23rd at 11:00 AM
+    - cron: '0 11 23 11 *'
+
 jobs:
-  self-hosted:
-    runs-on: [self-hosted, fargate-runner]
+  test:
+    runs-on: ubuntu-latest
     steps:
-      - run: echo hello world
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test:run
+      - run: npm run lint
