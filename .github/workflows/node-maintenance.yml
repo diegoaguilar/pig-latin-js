@@ -2,8 +2,9 @@ name: Node.js Version Maintenance
 
 on:
   schedule:
-    # Run every 2 months (approximately every 1.5 months)
-    - cron: '0 12 1 */2 *'
+    # Run every 6 months (April and October around LTS releases)
+    - cron: '0 12 1 4 *'
+    - cron: '0 12 1 10 *'
   workflow_dispatch:
 
 jobs:
