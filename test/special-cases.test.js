@@ -1,12 +1,11 @@
-'use strict';
+import PigLatin from '../index.js';
+import { describe, it, expect } from 'vitest';
 
-const PigLatin = require('../');
-const expect = require('chai').expect;
 const translator = new PigLatin('');
 
 const assertTranslation = (expected) => {
-  expect(translator.translate()).to.equal(expected);
-}
+  expect(translator.translate()).toBe(expected);
+};
 
 describe('PigLatin multiple words, capitalized, punctuation and hyphen cases tests', () => {
   it('Should translate multiple words', () => {
@@ -21,7 +20,7 @@ describe('PigLatin multiple words, capitalized, punctuation and hyphen cases tes
     assertTranslation('illbay Icheladamay');
   });
 
-  it('Respect puncttuation marks', () => {
+  it('Respect punctuation marks', () => {
     translator.reset('Three things: one, two, three.');
     assertTranslation('Eethray ingsthay: oneyay, otway, eethray.');
     translator.reset('fantastic!');
