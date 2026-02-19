@@ -4,6 +4,9 @@
   "description": "PigLatin translator",
   "type": "module",
   "main": "index.js",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
     "test": "vitest",
     "test:run": "vitest run",

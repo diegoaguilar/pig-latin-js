@@ -1,0 +1,72 @@
+name: Node.js Version Maintenance
+
+on:
+  schedule:
+    # Run weekly on Sundays at 12:00 PM
+    - cron: '0 12 * * 0'
+  workflow_dispatch:
+
+jobs:
+  check-node-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Read current Node.js requirement
+        id: current
+        run: |
+          NODE_VERSION=$(node -p "require('./package.json').engines.node")
+          echo "version=$NODE_VERSION" >> $GITHUB_OUTPUT
+      
+      - name: Check latest Node.js LTS
+        id: latest
+        run: |
+          LATEST=$(curl -s https://nodejs.org/dist/index.json | \
+            node -pe "JSON.parse(require('fs').readFileSync(0, 'utf8')).find(v => v.lts).version")
+          echo "version=v$LATEST" >> $GITHUB_OUTPUT
+          echo "lts_name=$(node -pe "JSON.parse(require('fs').readFileSync(0, 'utf8')).find(v => v.lts).lts")" >> $GITHUB_OUTPUT
+      
+      - name: Check if update needed
+        id: compare
+        run: |
+          CURRENT="${{ steps.current.outputs.version }}"
+          LATEST="${{ steps.latest.outputs.version }}"
+          
+          # Extract major versions
+          CURRENT_MAJOR=$(echo $CURRENT | grep -oP '\d+' | head -1)
+          LATEST_MAJOR=$(echo $LATEST | grep -oP '\d+' | head -1)
+          
+          if [ "$LATEST_MAJOR" -gt "$CURRENT_MAJOR" ]; then
+            echo "update_needed=true" >> $GITHUB_OUTPUT
+            echo "message=Node.js $LATEST LTS is available. Current requirement: $CURRENT" >> $GITHUB_OUTPUT
+          else
+            echo "update_needed=false" >> $GITHUB_OUTPUT
+            echo "message=Node.js is up to date" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create issue if update needed
+        if: steps.compare.outputs.update_needed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const currentVersion = '${{ steps.current.outputs.version }}';
+            const latestVersion = '${{ steps.latest.outputs.version }}';
+            const ltsName = '${{ steps.latest.outputs.lts_name }}';
+            
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[Maintenance] Update Node.js requirement to ${latestVersion}`,
+              body: `## Node.js Version Update Available
+              
+  **Current requirement:** ${currentVersion}
+  **New LTS available:** ${latestVersion} (${ltsName})
+  
+  Please update the following:
+  1. \`package.json\` - Update \`engines.node\` to \`>=${latestVersion}\`
+  2. \`.github/workflows/test.yml\` - Update \`node-version\` to \`${latestVersion}\`
+  
+  This issue was automatically created by the Node.js Version Maintenance workflow.
+  `,
+              labels: ['maintenance', 'dependencies']
+            });
