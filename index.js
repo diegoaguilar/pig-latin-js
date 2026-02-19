@@ -1,3 +1,1 @@
-'use strict';
-
-module.exports = require('./lib');
+export { default } from './lib/index.js';
