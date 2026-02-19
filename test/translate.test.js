@@ -1,15 +1,13 @@
-'use strict';
+import PigLatin from '../index.js';
+import { describe, it, expect } from 'vitest';
 
-const PigLatin = require('../');
-const expect = require('chai').expect;
 const translator = new PigLatin('');
 
 const assertTranslation = (expected) => {
-  expect(translator.translate()).to.equal(expected);
-}
+  expect(translator.translate()).toBe(expected);
+};
 
 describe('PigLatin translate method tests suite', () => {
-
   describe('Words which start with vowel', () => {
     it('Translate ask to askay', () => {
       translator.reset('ask');
@@ -48,14 +46,14 @@ describe('PigLatin translate method tests suite', () => {
     });
   });
 
-  describe('Wrods that start with multiple consonants', () => {
+  describe('Words that start with multiple consonants', () => {
     it('Translate known to ownknay', () => {
       translator.reset('known');
       assertTranslation('ownknay');
     });
     it('Translate special to ecialspay', () => {
       translator.reset('special');
-      assertTranslation('ecialspay')
+      assertTranslation('ecialspay');
     });
   });
 });

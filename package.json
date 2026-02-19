@@ -2,14 +2,21 @@
   "name": "piglatin",
   "version": "1.0.0",
   "description": "PigLatin translator",
+  "type": "module",
   "main": "index.js",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
-    "test": "mocha"
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "author": "Diego Benjamín Aguilar Aguilar",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^5.2.0"
+    "eslint": "^10.0.0",
+    "vitest": "^4.0.18"
   }
 }
